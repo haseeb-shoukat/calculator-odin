@@ -9,13 +9,13 @@ h1 {
     padding: 10px;
     margin: 0%;
     text-align: center;
-    color: aliceblue;
+    color: rgb(27, 110, 182);
 }
 
 body{
     padding: 0%;
     margin: 0%;
-    background-color: rgb(14, 102, 196);
+    background-color: aliceblue;
     display: flex;
     justify-content: center;
     align-items: center;

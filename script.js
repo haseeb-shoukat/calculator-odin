@@ -2,6 +2,7 @@ const numbers = document.querySelectorAll(".num")
 const screenBottom = document.querySelector(".screen-bottom")
 const screenTop = document.querySelector(".screen-top")
 const operators = document.querySelectorAll(".op")
+const clear = document.querySelector(".clear")
 
 let num1 = NaN;
 let num2 = 0;
@@ -15,6 +16,8 @@ numbers.forEach(number => {
 operators.forEach(operator => {
     operator.addEventListener("click", perform)}    
 );
+
+
 
 
 function add(n1, n2) {
@@ -52,28 +55,36 @@ function populate(e){
         screenBottom.textContent = "";
         flag = 0;
     };
+    if (screenBottom.textContent.length >= 15) return;
     screenBottom.textContent += this.textContent
 }
 
 function perform(e) {
     if ((!Number. isNaN(num1)) && !(flag === 1 || flag === 2)) {
         num2 = Number(screenBottom.textContent.trim());
-        const result = operate(op, num1, num2);
+        let result = operate(op, num1, num2);
+        result = parseFloat(result.toFixed(5));
 
         if (this.textContent === "=") {
+            if (op === "=") return;
             screenTop.textContent = `${num1} ${op} ${num2} =`;
+            num1 = NaN;
         }
         else {
             screenTop.textContent = `${result} ${this.textContent}`;
+            num1 = result;
         }
 
         screenBottom.textContent = result;
-        num1 = result;
         num2 = 0;
         op = this.textContent;
         flag = 2;
     }
-    else {
+    else if (this.textContent === "=") {
+        return;
+    }
+    else 
+    {
         num1 = Number(screenBottom.textContent.trim());
         op = this.textContent;
         screenTop.textContent = `${num1} ${op}`;
