@@ -2,11 +2,13 @@ const numbers = document.querySelectorAll(".num")
 const screenBottom = document.querySelector(".screen-bottom")
 const screenTop = document.querySelector(".screen-top")
 const operators = document.querySelectorAll(".op")
-const clear = document.querySelector(".clear")
+const clear = document.querySelector("#clear")
+const del = document.querySelector("#delete")
 
 let num1 = NaN;
 let num2 = 0;
 let op;
+let text = "";
 let flag = 0;
 
 numbers.forEach(number => {
@@ -17,8 +19,24 @@ operators.forEach(operator => {
     operator.addEventListener("click", perform)}    
 );
 
+clear.addEventListener("click", e => {
+    num1 = NaN;
+    num2 = 0;
+    op = undefined;
+    flag = 0;
+    screenBottom.textContent = "0"
+    screenTop.textContent = ""
+})
 
-
+del.addEventListener("click", e => {
+    if (screenBottom.textContent.trim() === "0") return;
+    if (screenBottom.textContent.length === 1) {
+        screenBottom.textContent = 0
+        return
+    };
+    text = screenBottom.textContent;
+    screenBottom.textContent = text.slice(0, text.length - 1);
+})
 
 function add(n1, n2) {
     return (n1 + n2)
@@ -56,6 +74,7 @@ function populate(e){
         flag = 0;
     };
     if (screenBottom.textContent.length >= 15) return;
+    if ((this.textContent === ".") && (screenBottom.textContent.includes("."))) return;
     screenBottom.textContent += this.textContent
 }
 
